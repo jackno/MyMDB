@@ -7,7 +7,9 @@
 <body>
   <ul>
     {% for movie in movie_list %}
-      {{ movie }}
+      <li>
+        {{ movie }}
+      </li>
     {% empty %}
       <li>No Movies yet.</li>
     {% endfor %}

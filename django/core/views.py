@@ -1,5 +1,5 @@
 from django.views.generic import (
-    Detailview,
+    DetailView,
     ListView,
 )
 
