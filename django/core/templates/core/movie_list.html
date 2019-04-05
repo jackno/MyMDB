@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MyMDB</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+  Movies - {{ block.super }}
+{% endblock title %}
+
+{% block main %}
   <ul>
-    {% for movie in movie_list %}
+    {% for object in object_list %}
       <li>
-        {{ movie }}
+        <a href="{% url 'core:movie_detail' pk=object.id %}">{{ object }}</a>
       </li>
     {% empty %}
-      <li>No Movies yet.</li>
+      <p>No Movies yet.</p>
     {% endfor %}
   </ul>
-  <p>Using HTTPS? {{ request.is_secure.|yesno }}</p>
-</body>
-</html>
+{% endblock main %}
