@@ -24,6 +24,9 @@ class Movie(models.Model):
     website = models.URLField(
             blank=True)
 
+    class Meta:
+        ordering = ('-year', 'title')
+
     def __str__(self):
         return '{} ({})'.format(self.title, self.year)
 
