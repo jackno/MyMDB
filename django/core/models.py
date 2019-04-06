@@ -1,6 +1,14 @@
 from django.db import models
 
 
+class MovieManager(models.Manager):
+    def all_with_related_persons(self):
+        queryset = self.get_queryset()
+        queryset = queryset.select_related('director')
+        queryset = queryset.prefetch_related('writers', 'actors')
+        return queryset
+
+
 class Movie(models.Model):
     NOT_RATED = 0
     RATED_G = 1
@@ -38,6 +46,7 @@ class Movie(models.Model):
             through='Role',
             related_name='acting_credits',
             blank=True)
+    objects = MovieManager()
 
     class Meta:
         ordering = ('-year', 'title')
@@ -47,7 +56,7 @@ class Movie(models.Model):
 
 
 class PersonManager(models.Manager):
-    def all_with_prefetch_movies(self):
+    def all_with_related_movies(self):
         queryset = self.get_queryset()
         return queryset.prefetch_related(
                 'directed',
