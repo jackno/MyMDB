@@ -3,10 +3,16 @@ from django.db import models
 
 
 class MovieManager(models.Manager):
+
     def all_with_related_persons(self):
         queryset = self.get_queryset()
         queryset = queryset.select_related('director')
         queryset = queryset.prefetch_related('writers', 'actors')
+        return queryset
+
+    def all_with_related_persons_and_score(self):
+        queryset = self.all_with_related_persons()
+        queryset = queryset.annotate(score=Sum('vote__value'))
         return queryset
 
 
