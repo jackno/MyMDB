@@ -7,7 +7,8 @@ from django.views.generic import (
     ListView,
 )
 
-from .models import Movie
+from .models import Movie, Vote
+from .forms import VoteForm
 
 
 class MovieList(ListView):
