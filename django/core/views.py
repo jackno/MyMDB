@@ -9,8 +9,8 @@ from django.views.generic import (
     UpdateView,
 )
 
+from .forms import MovieImageForm, VoteForm
 from .models import Movie, Vote
-from .forms import VoteForm
 
 
 class MovieList(ListView):
@@ -23,6 +23,7 @@ class MovieDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['image_form'] = self.movie_image_form()
 
         if self.request.user.is_authenticated:
             vote = Vote.objects.get_vote_or_unsaved_blank_vote(
@@ -48,6 +49,11 @@ class MovieDetail(DetailView):
             context['vote_form_url'] = vote_form_url
 
         return context
+
+    def movie_image_form(self):
+        if self.reuqest.user.is_authenticated:
+            return MovieImageForm()
+        return None
 
 
 class CreateVote(LoginRequiredMixin, CreateView):
