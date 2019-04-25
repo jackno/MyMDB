@@ -51,7 +51,7 @@ class MovieDetail(DetailView):
         return context
 
     def movie_image_form(self):
-        if self.reuqest.user.is_authenticated:
+        if self.request.user.is_authenticated:
             return MovieImageForm()
         return None
 
@@ -63,7 +63,7 @@ class CreateVote(LoginRequiredMixin, CreateView):
         initial = super().get_initial()
         initial['user'] = self.request.user.id
         initial['movie'] = self.kwargs['movie_id']
-        return inital
+        return initial
 
     def get_success_url(self):
         movie_id = self.object.movie.id

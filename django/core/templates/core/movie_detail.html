@@ -23,7 +23,7 @@
     This movie is rated: <span class="badge badge-primary">{{ object.get_rating_display }}</span>
   </div>
   <div>
-    <h1>Score: {{ object.score||default_if_none:"TBD" }}</h1>
+    <h1>Score: {{ object.score|default_if_none:"TBD" }}</h1>
   </div>
   <div>
     {% if vote_form %}

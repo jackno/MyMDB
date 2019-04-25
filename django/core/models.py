@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.db import models
+from django.db.models.aggregates import Sum
 
 
 def movie_directory_path_with_uuid(instance, filename):
