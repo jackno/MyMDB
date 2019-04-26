@@ -10,7 +10,7 @@
     <p class="lead">{{ object.plot }}</p>
   </div>
   <ul class="movie-image list-inline">
-    {% for i in object.movieimage__set.all %}
+    {% for i in object.movieimage_set.all %}
       <li class="list-inline-item">
         <img src="{{ i.image.url }}" alt="{{ object }} user uploaded image">
       </li>
@@ -39,7 +39,7 @@
   {% if image_form %}
     <div>
       <h2>Upload New Image</h2>
-      <form action="{% url 'core:movie_detail' pk=object.id %}" enctype="multipart/form-data" method="post">
+      <form action="{% url 'core:movie_image_upload' movie_id=object.id %}" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ image_form.as_p }}
         <p>
