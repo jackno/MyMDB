@@ -69,14 +69,18 @@ class MovieImageUpload(LoginRequiredMixin, CreateView):
         movie_id = self.kwargs['movie_id']
         movie_detail_url = reverse(
             'core:movie_detail',
-            kwargs={'pk': movie_id})
+            kwargs={
+                'pk': movie_id
+            })
         return redirect(to=movie_detail_url)
 
     def get_success_url(self):
         movie_id = self.kwargs['movie_id']
         movie_detail_url = reverse(
             'core:movie_detail',
-            kwargs={'pk': movie_id})
+            kwargs={
+                'pk': movie_id
+            })
         return movie_detail_url
 
 
@@ -126,6 +130,8 @@ class UpdateVote(LoginRequiredMixin, UpdateView):
         movie_id = context['object'].id
         movie_detail_url = reverse(
             'core:movie_detail',
-            kwargs={'pk': movie_id})
+            kwargs={
+                'pk': movie_id
+            })
         return redirect(to=movie_detail_url)
 

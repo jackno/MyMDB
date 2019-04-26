@@ -39,7 +39,7 @@
   {% if image_form %}
     <div>
       <h2>Upload New Image</h2>
-      <form action="{% url 'core:movie_detail' %}" enctype="multipart/form-data" method="post">
+      <form action="{% url 'core:movie_detail' pk=object.id %}" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ image_form.as_p }}
         <p>
