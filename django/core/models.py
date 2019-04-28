@@ -35,6 +35,14 @@ class MovieManager(models.Manager):
         queryset = queryset.annotate(score=Sum('vote__value'))
         return queryset
 
+    def top_movies(self, limit=10):
+        queryset = self.get_queryset()
+        queryset = queryset.annotate(vote_sum=Sum('vote__value'))
+        queryset = queryset.exclude(vote_sum=None)
+        queryset = queryset.order_by('-vote_sum')
+        queryset = queryset[:limit]
+        return queryset
+
 
 class Movie(models.Model):
     NOT_RATED = 0

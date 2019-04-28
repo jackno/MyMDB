@@ -56,6 +56,11 @@ class MovieDetail(DetailView):
         return None
 
 
+class TopMovies(ListView):
+    template_name = 'core/top_movies_list.html'
+    queryset = Movie.objects.top_movies(limit=10)
+
+
 class MovieImageUpload(LoginRequiredMixin, CreateView):
     form_class = MovieImageForm
 
