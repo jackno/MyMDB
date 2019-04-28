@@ -1,4 +1,6 @@
+import django
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -11,9 +13,10 @@ from django.views.generic import (
 
 from .forms import MovieImageForm, VoteForm
 from .models import Movie, Vote
+from .mixins import VaryCacheOnCookieMixin
 
 
-class MovieList(ListView):
+class MovieList(VaryCacheOnCookieMixin, ListView):
     model = Movie
     paginate_by = 10
 
@@ -58,7 +61,19 @@ class MovieDetail(DetailView):
 
 class TopMovies(ListView):
     template_name = 'core/top_movies_list.html'
-    queryset = Movie.objects.top_movies(limit=10)
+
+    def get_queryset(self):
+        limit = 10
+        key = 'top_movies_%s' % limit
+        cached_queryset = cache.get(key)
+        if cached_queryset:
+            same_django = cached_queryset._django_version \
+                    == django.get_version()
+            if same_django:
+                return cached_queryset
+        queryset = Movie.objects.top_movies(limit=limit)
+        cache.set(key, queryset)
+        return queryset
 
 
 class MovieImageUpload(LoginRequiredMixin, CreateView):
