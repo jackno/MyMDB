@@ -6,9 +6,9 @@ WORKDIR /mymdb
 
 COPY requirements* /mymdb/
 
-COPY django /mymydb/django
+COPY django /mymdb/django
 
-COPY scripts /mymydb/scripts
+COPY scripts /mymdb/scripts
 
 RUN mkdir /var/log/mymdb/ \
     && touch /var/log/mymdb/mymdb.log \
@@ -20,7 +20,7 @@ RUN mkdir /var/log/mymdb/ \
        python3-pip \
     && pip3 install virtualenv \
     && virtualenv /mymdb/venv \
-    && bash /mymdb/scripts/pip_install.sh /mymdb
+    && bash /mymdb/scripts/pip_install.sh /mymdb \
     && bash /mymdb/scripts/collect_static.sh /mymdb
 
 #-- Configure nginx

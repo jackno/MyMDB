@@ -2,12 +2,12 @@
 
 source /mymdb/venv/bin/activate
 
-export PASSWORD="$DJANGO_DB_PASSWORD"
+export PGPASSWORD="$DJANGO_DB_PASSWORD"
 psql \
     -h "$DJANGO_DB_HOST" \
     -p "$DJANGO_DB_PORT" \
     -U "$DJANGO_DB_USER" \
-    -d "#DJANGO_DB_NAME"
+    -d "$DJANGO_DB_NAME"
 
 if [[ $? != 0 ]]; then
     echo "no db server"
