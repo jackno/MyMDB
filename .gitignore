@@ -11,3 +11,6 @@ db.sqlite3
 media
 media_root/
 
+### Environment ###
+.env
+
