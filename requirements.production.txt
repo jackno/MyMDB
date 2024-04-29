@@ -1,5 +1,5 @@
 -r requirements.common.txt
 django-storages
 boto3
-uwsgi==2.0.15
+uwsgi==2.0.22
 
